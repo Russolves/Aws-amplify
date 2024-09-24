@@ -21,17 +21,22 @@ function Main() {
     useEffect(() => {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth * 0.98;
+        canvas.height = window.innerHeight * 0.98;
+        const canvasHeight = canvas.height;
+        const canvasWidth = canvas.width;
+        console.log(canvasHeight);
+        console.log(canvasWidth);
+        const charSize = canvasWidth / 42;
         // Create instances of BouncingCharacter
         let spaceMarine = null;
-        if (races.space_marines.use) spaceMarine = new characterClass(100, 100, races.space_marines.speed, 4, 'S', 30, 'blue', races.space_marines.number, races.space_marines.pattern);
+        if (races.space_marines.use) spaceMarine = new characterClass(canvasWidth / 11, canvasHeight / 5, races.space_marines.speed, 4, 'S', charSize, 'blue', races.space_marines.number, races.space_marines.pattern);
         let necron = null;
-        if (races.necrons.use) necron = new characterClass(1000, 300, races.necrons.speed, 2, 'N', 30, 'black', races.necrons.number, races.necrons.pattern);
+        if (races.necrons.use) necron = new characterClass(canvasWidth - canvasWidth / 12, canvasHeight - canvasHeight / 5, races.necrons.speed, 2, 'N', charSize, 'black', races.necrons.number, races.necrons.pattern);
         let aeldari = null;
-        if (races.aeldari.use) aeldari = new characterClass(100, 300, races.aeldari.speed, 3, 'A', 30, 'red', races.aeldari.number, races.aeldari.pattern);
+        if (races.aeldari.use) aeldari = new characterClass(canvasWidth / 11, canvasHeight - canvasHeight / 5, races.aeldari.speed, 3, 'A', charSize, 'red', races.aeldari.number, races.aeldari.pattern);
         let tyranid = null;
-        if (races.tyranids.use) tyranid = new characterClass(1000, 100, races.tyranids.speed, 3, 'T', 30, 'purple', races.tyranids.number, races.tyranids.pattern);
+        if (races.tyranids.use) tyranid = new characterClass(canvasWidth - canvasWidth / 12, canvasHeight / 5, races.tyranids.speed, 3, 'T', charSize, 'purple', races.tyranids.number, races.tyranids.pattern);
         let animationId; // Store the animation frame ID
         let factions = 0;
         for (let key in races) {

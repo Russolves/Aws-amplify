@@ -16,8 +16,8 @@ export default class characterClass {
   // Nested Soldier class
   Soldier = class {
     constructor(x, y, dx, dy, character, fontSize, color, pathType = 'linear') {
-      (character === 'D') ? this.x = x : this.x = x + (Math.random() - 0.5) * 250; // Random initial position around the main character
-      (character === 'D') ? this.y = y : this.y = y + (Math.random() - 0.5) * 250;
+      (character === 'D') ? this.x = x : this.x = x + (Math.random() - 0.5) * (fontSize * 6); // Random initial position around the main character
+      (character === 'D') ? this.y = y : this.y = y + (Math.random() - 0.5) * (fontSize * 6); // Scale this
       this.dx = dx;
       this.dy = dy;
       this.character = character;
