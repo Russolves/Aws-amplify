@@ -163,41 +163,52 @@ function Main() {
     };
 
     return (
-        <div>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
             {(isAnimated) ? (
                 <h1>Fight! {name}</h1>
             ) : (<h1>Russell's Warhammer 40K Simulation</h1>)}
-            <button onClick={toggleDead}>Dead mode</button>
-            <button id="toggleButton" onClick={animationStop}>Stop/Start</button>
-            <select multiple value={selectedOptions} onChange={handleSelectChange} style={{ minHeight: '5rem', minWidth: '10rem', marginLeft: '1rem', marginRight: '1rem' }}>
-                {(!races.space_marines.use) ? (<option value="space_marines">Space Marines</option>) : (<option value="space_marines">Space Marines    ✓</option>)}
-                {(!races.necrons.use) ? (<option value="necrons">Necrons</option>) : (<option value="necrons">Necrons    ✓</option>)}
-                {(!races.aeldari.use) ? (<option value="aeldari">Aeldari</option>) : (<option value="aeldari">Aeldari    ✓</option>)}
-                {(!races.tyranids.use) ? (<option value="tyranids">Tyranids</option>) : (<option value="tyranids">Tyranids    ✓</option>)}
-            </select>
-            <input style={{ maxWidth: '10rem' }} onChange={(e) => handleSpeedChange(e, currentSelected)} placeholder={`Enter Speed for ${currentSelected}`} />
-            <input style={{ maxWidth: '10rem' }} onChange={(e) => handleNumberChange(e, currentSelected)} placeholder={`Enter # units for ${currentSelected}`} />
-            <select value={selectedPattern} onChange={handlePatternChange}>
-                <option value="default">Default</option>
-                <option value="sin">Sin</option>
-                <option value="cos">Cos</option>
-                <option value="circular">Circular</option>
-            </select>
-            {/* <button onClick={changeImage}>Switch Image</button> */}
-            <div style={{ flex: 'start', justifyContent: 'center', alignItems: 'center' }}>
+
+            <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
+                <button onClick={toggleDead}>Dead mode</button>
+                <button id="toggleButton" onClick={animationStop}>Stop/Start</button>
+            </div>
+
+            <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
+                <select multiple value={selectedOptions} onChange={handleSelectChange} style={{ minHeight: '5rem', minWidth: '10rem', marginLeft: '1rem', marginRight: '1rem' }}>
+                    {(!races.space_marines.use) ? (<option value="space_marines">Space Marines</option>) : (<option value="space_marines">Space Marines    ✓</option>)}
+                    {(!races.necrons.use) ? (<option value="necrons">Necrons</option>) : (<option value="necrons">Necrons    ✓</option>)}
+                    {(!races.aeldari.use) ? (<option value="aeldari">Aeldari</option>) : (<option value="aeldari">Aeldari    ✓</option>)}
+                    {(!races.tyranids.use) ? (<option value="tyranids">Tyranids</option>) : (<option value="tyranids">Tyranids    ✓</option>)}
+                </select>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                    <input style={{ maxWidth: '10rem' }} onChange={(e) => handleSpeedChange(e, currentSelected)} placeholder={`Enter Speed for ${currentSelected}`} />
+                    <input style={{ maxWidth: '10rem' }} onChange={(e) => handleNumberChange(e, currentSelected)} placeholder={`Enter # units for ${currentSelected}`} />
+                </div>
+
+                <select value={selectedPattern} onChange={handlePatternChange} style={{ maxHeight: '2rem', maxWidth: '10rem' }}>
+                    <option value="default">Default</option>
+                    <option value="sin">Sin</option>
+                    <option value="cos">Cos</option>
+                    <option value="circular">Circular</option>
+                </select>
+            </div>
+
+            <div style={{ justifyContent: 'center', alignItems: 'center', marginBottom: '1rem' }}>
                 <canvas ref={canvasRef} style={{ border: '1px solid black', maxWidth: '50rem' }} />
             </div>
+
             {(whoWon !== '') && (
                 <h1>{whoWon}</h1>
             )}
-            {/* <div style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center'
-            }}>
-                <img src={image} alt="Dynamic Image Example" style={{ maxWidth: '60rem', maxHeight: '60rem' }} />
-            </div> */}
         </div>
+        /* <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+        }}>
+            <img src={image} alt="Dynamic Image Example" style={{ maxWidth: '60rem', maxHeight: '60rem' }} />
+        </div> */
     );
 }
 
