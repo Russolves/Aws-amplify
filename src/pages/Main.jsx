@@ -21,12 +21,10 @@ function Main() {
     useEffect(() => {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth * 0.98;
-        canvas.height = window.innerHeight * 0.98;
+        canvas.width = window.innerWidth * 0.90;
+        canvas.height = window.innerHeight * 0.80;
         const canvasHeight = canvas.height;
         const canvasWidth = canvas.width;
-        console.log(canvasHeight);
-        console.log(canvasWidth);
         const charSize = canvasWidth / 42;
         // Create instances of BouncingCharacter
         let spaceMarine = null;
@@ -163,7 +161,7 @@ function Main() {
     };
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '40vh', marginTop:'12rem'}}>
             {(isAnimated) ? (
                 <h1>Fight! {name}</h1>
             ) : (<h1>Russell's Warhammer 40K Simulation</h1>)}
