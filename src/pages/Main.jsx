@@ -8,6 +8,7 @@ function Main() {
     const [currentSelected, setCurrentSelected] = useState('');
     const [selectedOptions, setSelectedOptions] = useState([]);
     const [selectedPattern, setSelectedPattern] = useState('');
+    const [imageUrl, setImageUrl] = useState('');
     const [races, setRaces] = useState({
         space_marines: { use: false, number: 1, speed: 5, pattern: null },
         necrons: { use: false, number: 1, speed: 5, pattern: null },
@@ -117,6 +118,25 @@ function Main() {
         return () => cancelAnimationFrame(animationId);
     }, [isAnimated]); // Only restart the effect when isAnimated changes
 
+    // Hook for when current selected race changes
+    useEffect(() => {
+        switch(currentSelected) {
+            case 'space_marines':
+                setImageUrl("https://cdn.focus-home.com/fhi-fastforward-admin/custom/space-marine-2/section1-1.jpg");
+                break;
+            case 'necrons':
+                setImageUrl("https://i.pinimg.com/originals/ec/87/06/ec8706b50395fbcd8fb6482e6cc8950b.jpg");
+                break;
+            case 'aeldari':
+                setImageUrl("https://static1.thegamerimages.com/wordpress/wp-content/uploads/2023/01/aeldari-buying-guide.jpg");
+                break;
+            case 'tyranids':
+                setImageUrl("https://uploads.worldanvil.com/uploads/images/e61fdd2ead63caeb7d157f9ab01434ab.jpg");
+                break;
+            default:
+                console.log("Unknown faction");
+        }
+    }, [currentSelected])
     // Dead mode
     const toggleDead = () => {
         const death = !dead;
@@ -161,17 +181,17 @@ function Main() {
     };
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '40vh', marginTop:'12rem'}}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '40vh', marginTop: '12rem' }}>
             {(isAnimated) ? (
                 <h1>Fight! {name}</h1>
             ) : (<h1>Russell's Warhammer 40K Simulation</h1>)}
-
             <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
                 <button onClick={toggleDead}>Dead mode</button>
                 <button id="toggleButton" onClick={animationStop}>Stop/Start</button>
             </div>
 
             <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
+                <img src={imageUrl} alt="Faction Image" style={{ maxWidth: '250px', maxHeight: '250px'}} />
                 <select multiple value={selectedOptions} onChange={handleSelectChange} style={{ minHeight: '5rem', minWidth: '10rem', marginLeft: '1rem', marginRight: '1rem' }}>
                     {(!races.space_marines.use) ? (<option value="space_marines">Space Marines</option>) : (<option value="space_marines">Space Marines    ✓</option>)}
                     {(!races.necrons.use) ? (<option value="necrons">Necrons</option>) : (<option value="necrons">Necrons    ✓</option>)}
