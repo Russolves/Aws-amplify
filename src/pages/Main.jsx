@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import characterClass from '../characterClass';
+import './Main.css';
 
 function Main() {
     const [dead, setDead] = useState(false);
