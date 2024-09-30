@@ -193,7 +193,7 @@ function Main() {
 
             <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
                 <img src={imageUrl} alt="Faction Image" style={{ maxWidth: '250px', maxHeight: '250px'}} />
-                <select multiple value={selectedOptions} onChange={handleSelectChange} style={{ minHeight: '5rem', minWidth: '10rem', marginLeft: '1rem', marginRight: '1rem' }}>
+                <select multiple value={selectedOptions} onChange={handleSelectChange} style={{ minHeight: '5rem', minWidth: '7rem', marginLeft: '1rem', marginRight: '1rem' }}>
                     {(!races.space_marines.use) ? (<option value="space_marines">Space Marines</option>) : (<option value="space_marines">Space Marines    ✓</option>)}
                     {(!races.necrons.use) ? (<option value="necrons">Necrons</option>) : (<option value="necrons">Necrons    ✓</option>)}
                     {(!races.aeldari.use) ? (<option value="aeldari">Aeldari</option>) : (<option value="aeldari">Aeldari    ✓</option>)}

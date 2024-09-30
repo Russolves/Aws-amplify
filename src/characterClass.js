@@ -18,8 +18,8 @@ export default class characterClass {
     constructor(x, y, dx, dy, character, fontSize, color, pathType = 'linear') {
       (character === 'D') ? this.x = x : this.x = x + (Math.random() - 0.5) * (fontSize * 6); // Random initial position around the main character
       (character === 'D') ? this.y = y : this.y = y + (Math.random() - 0.5) * (fontSize * 6); // Scale this
-      this.dx = dx;
-      this.dy = dy;
+      this.dx = dx * fontSize / 15; // fontSize is around 10 in full screen browser (scale accordingly)
+      this.dy = dy * fontSize / 15;
       this.character = character;
       this.fontSize = fontSize;
       this.color = color;
