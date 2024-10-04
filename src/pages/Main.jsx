@@ -153,34 +153,40 @@ function Main() {
             races[race].use = !races[race].use;
         }
     };
-    // for speed
-    const handleSpeedChange = (event, current) => {
-        const speed = event.target.value;
-        if (!isNaN(speed) && !isNaN(parseFloat(speed))) {
-            races[current].speed = parseInt(event.target.value);
-        } else {
-            event.target.value = null;
+    // for changing attributes
+    const handleAttributeChange = (event, race, type) => {
+        const value = event.target.value; // Get the full input value
+        // Create a new copy of the races object to avoid direct mutation
+        let updatedRaces = { ...races };
+        switch(type) {
+            case "speed":
+                if (!isNaN(value)) { // Ensure the value is a number
+                    updatedRaces[race].speed = parseInt(value, 10);
+                } else {
+                    console.log('Invalid input for speed', value);
+                }
+                break;
+            case "number":
+                if (!isNaN(value)) { // Ensure the value is a number
+                    updatedRaces[race].number = parseInt(value, 10);
+                } else {
+                    console.log('Invalid input for number');
+                }
+                break;
+            case "pattern":
+                updatedRaces[race].pattern = value; // Set the pattern (assuming it's a string)
+                break;
+            default:
+                console.log("Something went wrong");
         }
-    }
-    // for number of units in army
-    const handleNumberChange = (event, current) => {
-        const number = event.target.value;
-        if (!isNaN(number) && !isNaN(parseFloat(number))) {
-            races[current].number = parseInt(event.target.value);
-        } else {
-            event.target.value = null;
-        }
-    }
-    // for pattern of army faction
-    const handlePatternChange = (event) => {
-        const pattern = event.target.value;
-        races[currentSelected].pattern = pattern;
-    }
+        // Set the updated races object in state
+        setRaces(updatedRaces);
+    };
+
     const animationStop = () => {
         setAnimated(!isAnimated);
         setwhoWon('');
     };
-
     return (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '40vh', marginTop: '12rem' }}>
             {(isAnimated) ? (
@@ -199,20 +205,44 @@ function Main() {
                     {(!races.aeldari.use) ? (<option value="aeldari">Aeldari</option>) : (<option value="aeldari">Aeldari    ✓</option>)}
                     {(!races.tyranids.use) ? (<option value="tyranids">Tyranids</option>) : (<option value="tyranids">Tyranids    ✓</option>)}
                 </select>
-
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                    <input style={{ maxWidth: '10rem' }} onChange={(e) => handleSpeedChange(e, currentSelected)} placeholder={`Enter Speed for ${currentSelected}`} />
-                    <input style={{ maxWidth: '10rem' }} onChange={(e) => handleNumberChange(e, currentSelected)} placeholder={`Enter # units for ${currentSelected}`} />
-                </div>
-
-                <select value={selectedPattern} onChange={handlePatternChange} style={{ maxHeight: '2rem', maxWidth: '10rem' }}>
-                    <option value="default">Default</option>
-                    <option value="sin">Sin</option>
-                    <option value="cos">Cos</option>
-                    <option value="circular">Circular</option>
-                </select>
             </div>
-
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                {Object.keys(races).map((race) => {
+                    if (races[race].use) { // if races is used
+                        return (
+                            <div key={race} style={{ display: 'flex', flexDirection: 'row', gap: '0.25rem', alignItems: 'center' }}>
+                                <p style={{marginRight:'1.0rem'}}>Attributes for {race[0].toUpperCase() + race.slice(1)}</p>
+                                <strong>Speed:</strong>
+                                <input
+                                    style={{ maxWidth: '5rem', maxHeight: '1rem'}}
+                                    onChange={(e) => handleAttributeChange(e, race, "speed")}
+                                    placeholder={`Enter Speed for ${race}`}
+                                    value={races[race].speed || 0}
+                                />
+                                <strong>Number:</strong>
+                                <input
+                                    style={{ maxWidth: '5rem', maxHeight: '1rem' }}
+                                    onChange={(e) => handleAttributeChange(e, race, "number")}
+                                    placeholder={`Enter # units for ${race}`}
+                                    value={races[race].number || 0}
+                                />
+                                <strong>Pattern:</strong>
+                                <select
+                                    value={races[race]?.pattern || 'default'}
+                                    onChange={(e) => handleAttributeChange(e, race, "pattern")}
+                                    style={{ maxHeight: '5rem', maxWidth: '8rem' }}
+                                >
+                                    <option value="default">Default</option>
+                                    <option value="sin">Sin</option>
+                                    <option value="cos">Cos</option>
+                                    <option value="circular">Circular</option>
+                                </select>
+                            </div>
+                        );
+                    }
+                    return null;
+                })}
+            </div>
             <div style={{ justifyContent: 'center', alignItems: 'center', marginBottom: '1rem' }}>
                 <canvas ref={canvasRef} style={{ border: '1px solid black', maxWidth: '50rem' }} />
             </div>
@@ -221,13 +251,6 @@ function Main() {
                 <h1>{whoWon}</h1>
             )}
         </div>
-        /* <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
-        }}>
-            <img src={image} alt="Dynamic Image Example" style={{ maxWidth: '60rem', maxHeight: '60rem' }} />
-        </div> */
     );
 }
 
