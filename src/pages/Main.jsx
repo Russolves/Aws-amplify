@@ -211,17 +211,17 @@ function Main() {
                     if (races[race].use) { // if races is used
                         return (
                             <div key={race} style={{ display: 'flex', flexDirection: 'row', gap: '0.25rem', alignItems: 'center' }}>
-                                <p style={{marginRight:'1.0rem'}}>Attributes for {race[0].toUpperCase() + race.slice(1)}</p>
+                                <p style={{marginRight:'1.0rem'}}>{race[0].toUpperCase() + race.slice(1)}</p>
                                 <strong>Speed:</strong>
                                 <input
-                                    style={{ maxWidth: '5rem', maxHeight: '1rem'}}
+                                    style={{ maxWidth: '1rem', maxHeight: '1rem'}}
                                     onChange={(e) => handleAttributeChange(e, race, "speed")}
                                     placeholder={`Enter Speed for ${race}`}
                                     value={races[race].speed || 0}
                                 />
                                 <strong>Number:</strong>
                                 <input
-                                    style={{ maxWidth: '5rem', maxHeight: '1rem' }}
+                                    style={{ maxWidth: '1rem', maxHeight: '1rem' }}
                                     onChange={(e) => handleAttributeChange(e, race, "number")}
                                     placeholder={`Enter # units for ${race}`}
                                     value={races[race].number || 0}
@@ -230,7 +230,7 @@ function Main() {
                                 <select
                                     value={races[race]?.pattern || 'default'}
                                     onChange={(e) => handleAttributeChange(e, race, "pattern")}
-                                    style={{ maxHeight: '5rem', maxWidth: '8rem' }}
+                                    style={{ maxHeight: '5rem', maxWidth: '5rem' }}
                                 >
                                     <option value="default">Default</option>
                                     <option value="sin">Sin</option>
@@ -253,5 +253,4 @@ function Main() {
         </div>
     );
 }
-
 export default Main;
