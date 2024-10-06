@@ -211,7 +211,7 @@ function Main() {
                     if (races[race].use) { // if races is used
                         return (
                             <div key={race} style={{ display: 'flex', flexDirection: 'row', gap: '0.25rem', alignItems: 'center' }}>
-                                <p style={{marginRight:'1.0rem'}}>{race[0].toUpperCase() + race.slice(1)}</p>
+                                <p style={{marginRight:'0.5rem'}}>{race[0].toUpperCase() + race.slice(1)}</p>
                                 <strong>Speed:</strong>
                                 <input
                                     style={{ maxWidth: '1rem', maxHeight: '1rem'}}
