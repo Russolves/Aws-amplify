@@ -28,7 +28,7 @@ function Main() {
         const canvasHeight = canvas.height;
         const canvasWidth = canvas.width;
         console.log(canvasWidth);
-        const charSize = 22 + (1 / canvasWidth) * 1000; // determines the fontsize
+        const charSize = 22 + (1 / canvasWidth) * 1000; // determines fontsize (smaller the screen the larger)
         // Create instances of BouncingCharacter for each faction
         let spaceMarine = null;
         if (races.space_marines.use) spaceMarine = new characterClass(canvasWidth / 11, canvasHeight / 5, races.space_marines.speed, 4, 'S', charSize, 'blue', races.space_marines.number, races.space_marines.pattern);
