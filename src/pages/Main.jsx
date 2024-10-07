@@ -122,7 +122,7 @@ function Main() {
 
     // Hook for when current selected race changes
     useEffect(() => {
-        switch(currentSelected) {
+        switch (currentSelected) {
             case 'space_marines':
                 setImageUrl("https://cdn.focus-home.com/fhi-fastforward-admin/custom/space-marine-2/section1-1.jpg");
                 break;
@@ -146,20 +146,16 @@ function Main() {
     }
 
     // For multi dropdown select
-    const handleSelectChange = (event) => {
-        const options = Array.from(event.target.selectedOptions, option => option.value);
-        setSelectedOptions(options);
-        for (let race of options) {
-            setCurrentSelected(race);
-            races[race].use = !races[race].use;
-        }
+    const handleSelectChange = (race) => {
+        setCurrentSelected(race);
+        races[race].use = !races[race].use;
     };
     // for changing attributes
     const handleAttributeChange = (event, race, type) => {
         const value = event.target.value; // Get the full input value
         // Create a new copy of the races object to avoid direct mutation
         let updatedRaces = { ...races };
-        switch(type) {
+        switch (type) {
             case "speed":
                 if (!isNaN(value)) { // Ensure the value is a number
                     updatedRaces[race].speed = parseInt(value, 10);
@@ -199,23 +195,53 @@ function Main() {
             </div>
 
             <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
-                <img src={imageUrl} alt="Faction Image" style={{ maxWidth: '250px', maxHeight: '250px'}} />
-                <select multiple value={selectedOptions} onChange={handleSelectChange} style={{ minHeight: '5rem', minWidth: '7rem', marginLeft: '1rem', marginRight: '1rem' }}>
-                    {(!races.space_marines.use) ? (<option value="space_marines">Space Marines</option>) : (<option value="space_marines">Space Marines    ✓</option>)}
-                    {(!races.necrons.use) ? (<option value="necrons">Necrons</option>) : (<option value="necrons">Necrons    ✓</option>)}
-                    {(!races.aeldari.use) ? (<option value="aeldari">Aeldari</option>) : (<option value="aeldari">Aeldari    ✓</option>)}
-                    {(!races.tyranids.use) ? (<option value="tyranids">Tyranids</option>) : (<option value="tyranids">Tyranids    ✓</option>)}
-                </select>
+                <img src={imageUrl} alt="Faction Image" style={{ maxWidth: '15rem', maxHeight: '12rem' }} />
+
+                <div style={{ display: 'flex', flexDirection: 'column', marginLeft: '1rem', marginRight: '1rem' }}>
+                    <label>
+                        <input
+                            type="checkbox"
+                            value="space_marines"
+                            checked={races.space_marines.use}
+                            onChange={() => handleSelectChange('space_marines')}
+                        />Space Marines {races.space_marines.use && '✓'}
+                    </label>
+                    <label>
+                        <input
+                            type="checkbox"
+                            value="necrons"
+                            checked={races.necrons.use}
+                            onChange={() => handleSelectChange('necrons')}
+                        />Necrons {races.necrons.use && '✓'}
+                    </label>
+                    <label>
+                        <input
+                            type="checkbox"
+                            value="aeldari"
+                            checked={races.aeldari.use}
+                            onChange={() => handleSelectChange('aeldari')}
+                        />Aeldari {races.aeldari.use && '✓'}
+                    </label>
+                    <label>
+                        <input
+                            type="checkbox"
+                            value="tyranids"
+                            checked={races.tyranids.use}
+                            onChange={() => handleSelectChange('tyranids')}
+                        />Tyranids {races.tyranids.use && '✓'}
+                    </label>
+                </div>
             </div>
+
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 {Object.keys(races).map((race) => {
                     if (races[race].use) { // if races is used
                         return (
                             <div key={race} style={{ display: 'flex', flexDirection: 'row', gap: '0.25rem', alignItems: 'center' }}>
-                                <p style={{marginRight:'0.5rem'}}>{race[0].toUpperCase() + race.slice(1)}</p>
+                                <p style={{ marginRight: '0.5rem' }}>{race[0].toUpperCase() + race.slice(1)}</p>
                                 <strong>Speed:</strong>
                                 <input
-                                    style={{ maxWidth: '1rem', maxHeight: '1rem'}}
+                                    style={{ maxWidth: '1rem', maxHeight: '1rem' }}
                                     onChange={(e) => handleAttributeChange(e, race, "speed")}
                                     placeholder={`Enter Speed for ${race}`}
                                     value={races[race].speed || 0}
