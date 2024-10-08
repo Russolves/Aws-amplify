@@ -27,7 +27,6 @@ function Main() {
         canvas.height = window.innerHeight * 0.80;
         const canvasHeight = canvas.height;
         const canvasWidth = canvas.width;
-        console.log(canvasWidth);
         const charSize = 22 + (1 / canvasWidth) * 1000; // determines fontsize (smaller the screen the larger)
         // Create instances of BouncingCharacter for each faction
         let spaceMarine = null;
@@ -147,8 +146,15 @@ function Main() {
 
     // For multi dropdown select
     const handleSelectChange = (race) => {
+        // Create a new copy of races to update the state
+        setRaces((prev) => ({
+            ...prev,
+            [race]: {
+                ...prev[race],
+                use:!prev[race].use
+            }
+        }))
         setCurrentSelected(race);
-        races[race].use = !races[race].use;
     };
     // for changing attributes
     const handleAttributeChange = (event, race, type) => {
@@ -195,7 +201,7 @@ function Main() {
             </div>
 
             <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
-                <img src={imageUrl} alt="Faction Image" style={{ maxWidth: '15rem', maxHeight: '12rem' }} />
+                <img src={imageUrl} alt="Faction Image" style={{ maxWidth: '15rem', maxHeight: '5rem' }} />
 
                 <div style={{ display: 'flex', flexDirection: 'column', marginLeft: '1rem', marginRight: '1rem' }}>
                     <label>
