@@ -182,7 +182,7 @@ function Main() {
             default:
                 console.log("Something went wrong");
         }
-        // Set the updated races object in state through replacing it
+        // Set the updated races object in state through replacing it with copy
         setRaces(updatedRaces);
     };
 
