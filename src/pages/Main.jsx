@@ -177,7 +177,7 @@ function Main() {
                 }
                 break;
             case "pattern":
-                updatedRaces[race].pattern = value; // Set the pattern (string)
+                updatedRaces[race].pattern = value; // Set the pattern
                 break;
             default:
                 console.log("Something went wrong");
